@@ -30,6 +30,7 @@ link varchar(500) not null
 )
 
 create table tbPermissoes(
+id int not null primary key auto_increment,
 idModulo int not null references tbmodulos(id),
 idUsuario int not null references tbusuarios(id),
 validade date null,
