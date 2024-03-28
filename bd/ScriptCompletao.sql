@@ -34,7 +34,10 @@ id int not null primary key auto_increment,
 idModulo int not null references tbmodulos(id),
 idUsuario int not null references tbusuarios(id),
 validade date null,
-nivel varchar(20)
+incluir bool,
+excluir bool,
+editar bool,
+listar bool
 )
 
 create table tbpessoas(
@@ -60,6 +63,6 @@ create table tbdocumentos(
 iddocumento int not null primary key auto_increment,
 documento blob,
 datadocumento date,
-tipodocumento varchar(20)
+tipodocumento varchar(20),
 idUsuario int not null references tbusuarios(id)
 )
