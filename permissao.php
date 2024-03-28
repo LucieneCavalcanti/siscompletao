@@ -148,7 +148,7 @@
         ?>
 <main class="form-signin w-100 m-auto">
   <form action="permissao.php" method="post">
-    <h1 class="h3 mb-3 fw-normal">Módulos</h1>
+    <h1 class="h3 mb-3 fw-normal">Permissões</h1>
 
     <div class="form-floating">
       <?php
@@ -160,19 +160,33 @@
       value="<?php echo $id; ?>">
       <label for="floatingInput">Id</label>
     </div>
-    <div class="form-floating">
-      <select name="idmodulo" class="form-control" 
-      id="floatingInput" placeholder="Módulo" required>
-      <label for="floatingInput">Módulo</label>
-        <option>Teste 1</option>
-        <option>Teste 2</option>
-      </select>
+    <div >
+      <label>Módulo</label><br>
+      <select name="idmodulo" required>
+      
+        <?php
+          $sql2 = "select * FROM tbmodulos order by descricao";
+          $resultado2 = $conn->query($sql2);
+          foreach($resultado2 as $registro2) {
+              echo "<option value='".
+              $registro2['id']."'>".
+              $registro2['descricao']."</option>";
+          }
+        ?>
+      </select><br> 
     </div>
-    <div class="form-floating">
-      <select name="idusuario" class="form-control" 
-      id="floatingInput" placeholder="Usuário" required>
-      <label for="floatingInput">Usuário</label>
-        <option>Teste 1</option>
+    <div>
+      <label for="floatingInput">Usuário</label><br>
+      <select name="idusuario" required><br>
+      <?php
+          $sql3 = "select * FROM tbusuarios order by nome";
+          $resultado3 = $conn->query($sql3);
+          foreach($resultado3 as $registro3) {
+              echo "<option value='".
+              $registro3['id']."'>".
+              $registro3['nome']."</option>";
+          }
+        ?>
       </select>
     </div>
     <div class="form-floating">
@@ -181,14 +195,12 @@
       value="<?php echo $validade; ?>">
       <label for="floatingInput">Validade</label>
     </div>
-    <div class="form-floating">
-      <label for="incluir">Permissões</label>
-      </div>
-      <div class="form-floating">
-      <input type="checkbox" name="incluir">Incluir
-      <input type="checkbox" name="incluir">Excluir
-      <input type="checkbox" name="incluir">Listar
-      <input type="checkbox" name="incluir">Editar
+    <div>
+      <label for="incluir">Permissões</label><br>
+      <input type="checkbox" name="Incluir">Incluir
+      <input type="checkbox" name="Excluir">Excluir
+      <input type="checkbox" name="Listar">Listar
+      <input type="checkbox" name="Editar">Editar<br><br>
     </div>
     <div class="form-floating"></div>
     <button class="w-100 btn btn-lg btn-primary" type="submit"><?php echo strtoupper($acao); ?></button>
@@ -199,16 +211,16 @@
 <div id="listagem">
       <h1>Listagem</h1>
       <?php
-        $sql="Select * from tbmodulos order by descricao";
-        echo "<table><tr><th>ID</th><th>Descrição</th><th>Link</th><th></th></tr>";
+        $sql="Select * from tbpermissoes order by idusuario";
+        echo "<table><tr><th>ID</th><th>Módulo</th><th>Usuário</th><th></th></tr>";
         $resultado = $conn->query($sql);
         foreach($resultado as $registro) {
             echo "<tr><td>".$registro["id"]."</td><td>".
-            $registro["descricao"]."</td><td>".
-            $registro["link"]."</td><td>
-            <a href='modulo.php?id=".$registro["id"]."&acao=editar'><span class='material-symbols-outlined'>
+            $registro["idmodulo"]."</td><td>".
+            $registro["idusuario"]."</td><td>
+            <a href='permissao.php?id=".$registro["id"]."&acao=editar'><span class='material-symbols-outlined'>
             edit</span></a>
-            <a href='modulo.php?id=".$registro["id"]."&acao=excluir'><span class='material-symbols-outlined'>
+            <a href='permissao.php?id=".$registro["id"]."&acao=excluir'><span class='material-symbols-outlined'>
             delete</span></a>
             </td></tr>";
         }
