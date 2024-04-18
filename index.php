@@ -47,3 +47,7 @@
 </nav>
 </body>
 </html>
+
+<?php
+require_once "rodape.php";
+?>

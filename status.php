@@ -1,3 +1,7 @@
+<?php
+  require_once "topo.php";
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,62 +15,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
     <?php
@@ -126,11 +76,13 @@
           $descricao="";
         }
         ?>
-<main class="form-signin w-100 m-auto">
-  <form action="status.php" method="post">
-    <h1 class="h3 mb-3 fw-normal">Status</h1>
 
-    <div class="form-floating">
+<main class="w-100 m-auto" style="min-height: 400px;">
+  <form action="status.php" method="post">
+    <div class="container justify-content-center">
+      <div class="left">
+        <h1 class="h4 mb-3 fw-normal text-center">Cadastrar Status</h1>
+        <div class="form-floating">
       <?php
       if($id>0 && $descricao!="")
         $acao="atualizar"; ?>
@@ -152,10 +104,18 @@
   </form> <br>
 </main>
 
+
+<main class="w-100 m-auto" style="min-height: 400px;">
 <div id="listagem">
-      <h1>Listagem</h1>
+  <form action="status.php" method="post">
+    <div class="container justify-content-center">
+      <div class="left">
+        <h1 class="h4 mb-3 fw-normal text-center">Status Cadastrados</h1>
+        <div class="form-floating">
+
+
       <?php
-        $sql="Select * from tbstatus order by descricao";
+        $sql="Select * from tbstatus order by id";
         echo "<table><tr><th>ID</th><th>Descrição</th><th></th></tr>";
         $resultado = $conn->query($sql);
         foreach($resultado as $registro) {
@@ -173,3 +133,7 @@
     
   </body>
 </html>
+
+<?php
+require_once "rodape.php";
+?>
