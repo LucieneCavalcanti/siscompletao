@@ -22,6 +22,11 @@
   </head>
   <body class="text-center">
   <?php
+  session_start();
+  if(isset($_SESSION['idUsuario']) 
+  && $_SESSION['idUsuario']<>0) { //se login ok
+    echo "</p>Você está logado como: "
+    .$_SESSION['nomeUsuario'];
         //verificar a variavel ação
       $acao="";
       $id=0;
@@ -143,11 +148,11 @@
         echo "</table>";
         ?>
 </div>
-
-    
-  </body>
-</html>
-
-<?php
+<?php 
+} //fim do if que verificar se o usuário está logado
+else{
+  echo "<p>Você não possui permissão para acessar esta
+  página, verifique seu login</p>";
+}
 require_once "rodape.php";
 ?>

@@ -27,7 +27,9 @@ if(isset($_POST['email']) && isset($_POST['senha'])){
             }
             //criar sessão do usuário, para verificar se 
             //está logando quando entrar em outras páginas
-            
+            session_start();
+            $_SESSION['idUsuario']=$registro['id'];
+            $_SESSION['nomeUsuario']=$registro['nome'];
             exit;
         }else {
             echo "<h3>Você precisa verificar seu login, status = ".$registro['idStatus']."</h3>";
