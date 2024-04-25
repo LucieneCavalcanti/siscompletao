@@ -1,27 +1,5 @@
 <?php
   require_once "topo.php";
-?>
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
-    <title>SIS Completão - Cadastro</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/signin.css" rel="stylesheet">
-
-
-  </head>
-  <body class="text-center">
-  <?php
   session_start();
   if(isset($_SESSION['idUsuario']) 
   && $_SESSION['idUsuario']<>0) { //se login ok
@@ -42,7 +20,7 @@
           $email=$_POST['email'];
           $senha=$_POST['senha'];
           //echo "entrou no post";
-        } else {
+        } else if($_SERVER['REQUEST_METHOD'] == 'POST'){
           $acao="novo";
           $id=0;
           $nome="";

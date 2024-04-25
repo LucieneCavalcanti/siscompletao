@@ -27,18 +27,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="cadastrousuario.php">Cadastro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="modulo.php">Modulo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="permissao.php">Permissão</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="status.php">Status</a>
-                    </li>
+                    <?php
+                    require_once ("bd/conexao.php");
+                    $sql = "select * from tbmodulos order by descricao";
+                    $resultado = $conn->query($sql);
+                    foreach($resultado as $registro) {
+                        echo "<li class='nav-item'>
+                            <a class='nav-link' href='".$registro['link']."'>"
+                            .$registro['descricao']."</a></li>";
+                    }
+                    ?>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
                     </li>

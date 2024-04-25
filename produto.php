@@ -23,7 +23,7 @@
       $idcategoria=$_POST['idcategoria'];
       $idstatus=$_POST['idstatus'];
     } 
-    else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    else if($_SERVER['REQUEST_METHOD'] == 'POST'){
       $acao="novo";
       $id=0;
       $descricao=$_POST['descricao'];
@@ -113,7 +113,7 @@
 
       
 <main class="w-100 m-auto" style="min-height: 300px;">
-  <form action="permissao.php" method="post">
+  <form action="produto.php" method="post">
     <div class="container justify-content-center">
       <div class="left"><br><br>
         <h1 class="h4 mb-3 fw-normal text-center">Cadastrar Permissões</h1>
@@ -193,9 +193,9 @@
       <div class="row">
         <h1 class="h4 mb-3 fw-normal text-center">Permissões Cadastradas</h1>
         <?php
-        $sql="SELECT p.*, c.descricao as categoria, st.descricao as status FROM tbpermissoes p
-        JOIN tbcategorias c ON tbprodutos.idcategoria = tbcategorias.id 
-        JOIN tbstatus st ON tbprodutos.idstatus = tbstatus.id ORDER BY tbprodutos.descricao";
+        $sql="SELECT p.*, c.descricao as categoria, st.descricao as status FROM tbprodutos p
+        JOIN tbcategorias c ON p.idCategoria = c.id 
+        JOIN tbstatus st ON p.idStatus = st.id ORDER BY p.descricao";
         
         echo "<table><tr><th>ID</th><th>Produto</th><th>Quantidade</th><th>Preço</th><th>Desconto</th><th>Categoria</th><th>Status</th><th>Ações</th></tr>";
     
