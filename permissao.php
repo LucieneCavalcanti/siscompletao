@@ -63,7 +63,6 @@
       JOIN tbmodulos ON tbpermissoes.idmodulo = tbmodulos.id 
       JOIN tbusuarios ON tbpermissoes.idusuario = tbusuarios.id 
       WHERE tbpermissoes.id = $id";
-      $sql3 = "SELECT * FROM tbusuarios ORDER BY nome";
       $resultado = $conn->query($sql);
       foreach($resultado as $registro) {
         $idmodulo = $registro['modulo_descricao']; // nomes da tabela
