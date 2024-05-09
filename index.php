@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIS Completão</title>
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -54,6 +55,12 @@
       echo "<a href='index.php?idCategoria=".$registro["id"]."'>".
       $registro["descricao"]."</a> | ";
   }
+  session_start();
+  if(isset($_SESSION['idProduto']))
+    echo "<a href='carrinho.php'>Carrinho(". 
+    sizeof($_SESSION['Produto']).")</a>";
+  else
+    echo "<a href='carrinho.php'>Carrinho(0)</a>";
   if(isset($_GET['idCategoria'])){
     $idCategoria= $_GET['idCategoria'];
     $sql2 = "Select * from tbprodutos where quantidade>0 and 
@@ -62,7 +69,10 @@
     foreach($resultado2 as $registro2) {
         echo "<div class='produto'><p>".$registro2['descricao']."</p>";
         echo "<p>R$ ".$registro2['preco']."</p>";
-        echo "<p>Desconto de ".$registro2['desconto']."</p><br></div>";
+        echo "<p>Desconto de ".$registro2['desconto']."</p><br>".
+        "<a href='verproduto.php?id=". $registro2['id']."'>Ver Produto</a> ".
+        "<a href='comprarproduto.php?id=". $registro2['id']."'>Comprar</a>"
+        ."</div>";
     }
   }else {
     $sql3 = "Select * from tbprodutos 
@@ -74,7 +84,10 @@
     foreach($resultado3 as $registro3) {
         echo "<div class='produto'><p>".$registro3['descricao']."</p>";
         echo "<p>R$ ".$registro3['preco']."</p>";
-        echo "<p>Desconto de ".$registro3['desconto']."</p><br></div>";
+        echo "<p>Desconto de ".$registro3['desconto']."</p><br>".
+        "<a href='verproduto.php?id=". $registro3['id']."'>Ver Produto</a> ".
+        "<a href='comprarproduto.php?id=". $registro3['id']."'>Comprar</a>"
+        ."</div>";
     }
     $sql4 = "Select * from tbprodutos 
     where quantidade>0 and 
@@ -87,7 +100,10 @@
         echo "<p>R$ ".$registro4['preco']."</p>";
         echo "<p>Desconto de ".$registro4['desconto']."</p>";
         echo "<p>Preço com desconto ". 
-        ($registro4['preco']-$registro4['desconto'])."</p><br></div>";
+        ($registro4['preco']-$registro4['desconto'])."</p><br>".
+        "<a href='verproduto.php?id=". $registro4['id']."'>Ver Produto</a> ".
+        "<a href='comprarproduto.php?id=". $registro4['id']."'>Comprar</a>"
+        ."</div>";
     }
   }
   ?>
