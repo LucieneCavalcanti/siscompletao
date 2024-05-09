@@ -43,20 +43,18 @@ descricao varchar(100) not null,
 link varchar(500) not null
 )
 
-insert into tbmodulos values 
-(1, 'Home', 'home.php'),
-(2, 'Perfil', 'perfil.php'),
-(3, 'Cadastro', 'cadastro.php'),
-(4, 'Categorias', 'categorias.php'),
-(5, 'Documentos', 'documentos.php'),
-(6, 'Avaliações', 'avaliacao.php'),
-(7, 'Chamados', 'chamado.php'),
-(8, 'Módulos', 'modulos.php'),
-(9, 'Pemissões', 'permissao.php'),
-(10, 'Artigos', 'artigos.php')
+insert into tbmodulos (descricao,link)
+values 
+('Home', 'home.php'),
+('Perfil', 'perfil.php'),
+('Usuários', 'cadastro.php'),
+('Categorias', 'categorias.php'),
+('Produtos', 'documentos.php'),
+('Módulos', 'modulos.php'),
+('Pemissões', 'permissao.php')
 
 
-
+select * from tbmodulos t 
 
 create table tbPermissoes(
 id int not null primary key auto_increment,
@@ -82,8 +80,30 @@ idCategoria int not null references tbCategorias(id),
 idStatus int not null references tbStatus(id))
 
 
+SELECT p.*, c.descricao as categoria, st.descricao as status FROM tbprodutos p
+        JOIN tbcategorias c ON p.idCategoria = c.id 
+        JOIN tbstatus st ON p.idStatus = st.id ORDER BY p.descricao
 
+select * from tbprodutos p 
 
+Select * from tbprodutos 
+where quantidade>0 and 
+idstatus =1 
+order by rand() limit 2 
+
+INSERT INTO bdsiscompletao.tbprodutos (descricao,quantidade,preco,desconto,idCategoria,idStatus) VALUES
+	 ('Celular Samsung G3',100,1750.00,0.00,1,1),
+	 ('Celular iPhone 12',250,4560.00,0.00,1,1),
+	 ('Aprenda PHP',200,15.00,NULL,4,1),
+	 ('Livro de Banco de Dados',0,25.00,0.00,4,1),
+	 ('Vidas secas',10,9.90,NULL,4,2),
+	 ('Quincas Borba',10,12.90,2.90,4,1);
+INSERT INTO bdsiscompletao.tbprodutos (descricao,quantidade,preco,desconto,idCategoria,idStatus) VALUES
+	 ('Tablet LENOVO',1007,1230.00,30,1,1),
+	 ('Caixa de som JBL',10,850,0.00,1,1),
+	 ('Java como programar',2000,150.00,NULL,4,1),
+	 ('Aprenda Banco de Dados',10,25.00,5,4,1),
+	 ('Violetas na Janela',100,9.90,NULL,4,2);
 
 
 create table tbpessoas(

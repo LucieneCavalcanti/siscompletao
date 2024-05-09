@@ -45,6 +45,53 @@
     </div>
   </div>
 </nav>
+<main>
+  <?php
+  require_once "bd/conexao.php";
+  $sql="select * from tbcategorias order by descricao";
+  $resultado = $conn->query($sql);
+  foreach($resultado as $registro) {
+      echo "<a href='index.php?idCategoria=".$registro["id"]."'>".
+      $registro["descricao"]."</a> | ";
+  }
+  if(isset($_GET['idCategoria'])){
+    $idCategoria= $_GET['idCategoria'];
+    $sql2 = "Select * from tbprodutos where quantidade>0 and 
+    idstatus =1 and idCategoria = ".$idCategoria;
+    $resultado2 = $conn->query($sql2);
+    foreach($resultado2 as $registro2) {
+        echo "<div class='produto'><p>".$registro2['descricao']."</p>";
+        echo "<p>R$ ".$registro2['preco']."</p>";
+        echo "<p>Desconto de ".$registro2['desconto']."</p><br></div>";
+    }
+  }else {
+    $sql3 = "Select * from tbprodutos 
+    where quantidade>0 and 
+    idstatus =1 
+    order by rand() limit 2";
+    $resultado3 = $conn->query($sql3);
+    echo "<h3>Destaques ___________________________________</h3>";
+    foreach($resultado3 as $registro3) {
+        echo "<div class='produto'><p>".$registro3['descricao']."</p>";
+        echo "<p>R$ ".$registro3['preco']."</p>";
+        echo "<p>Desconto de ".$registro3['desconto']."</p><br></div>";
+    }
+    $sql4 = "Select * from tbprodutos 
+    where quantidade>0 and 
+    idstatus =1 and desconto>0
+    order by rand() limit 2";
+    $resultado4 = $conn->query($sql4);
+    echo "<h3>Promoção ___________________________________</h3>";
+    foreach($resultado4 as $registro4) {
+        echo "<div class='produto'><p>".$registro4['descricao']."</p>";
+        echo "<p>R$ ".$registro4['preco']."</p>";
+        echo "<p>Desconto de ".$registro4['desconto']."</p>";
+        echo "<p>Preço com desconto ". 
+        ($registro4['preco']-$registro4['desconto'])."</p><br></div>";
+    }
+  }
+  ?>
+</main>
 </body>
 </html>
 
