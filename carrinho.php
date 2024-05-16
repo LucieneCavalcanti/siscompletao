@@ -18,6 +18,7 @@
                 <th>Produto</th>
                 <th>Quantidade</th>
                 <th>Preço Unitário</th>
+                <th>Desconto</th>
                 <th>Total</th>
                 <th>Ações</th>
             </tr>
@@ -29,6 +30,9 @@
             // Verificando se existe carrinho na sessão
             if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
                 require_once "bd/conexao.php";
+                $totalCompra=0;
+                $totalDescontos=0;
+                $totalAPagar=0;
                 foreach ($_SESSION['carrinho'] as $produto_id => $quantidade) {
                     // Recuperando informações do produto do banco de dados
                     $sql = "SELECT * FROM tbprodutos WHERE id = $produto_id";
@@ -36,13 +40,14 @@
                     $registro = $resultado->fetch(PDO::FETCH_ASSOC);
 
                     // Calculando o total para este produto
-                    $total_produto = $registro['preco'] * $quantidade;
-
+                    $total_produto = ($registro['preco']-$registro['desconto']) * $quantidade;
+                    $totalCompra+=$total_produto;
                     // Exibindo os detalhes do produto no carrinho
                     echo "<tr>";
                     echo "<td>{$registro['id']} --->>> {$registro['descricao']}</td>";
-                    echo "<td><input type='number' value='{$quantidade}' id='quantidade-$produto_id' size='3'></td>";
+                    echo "<td><input type='number' value='{$quantidade}' id='quantidade-$produto_id' size='3' onchange='atualizarQuantidade($produto_id)'></td>";
                     echo "<td id='preco-unitario-$produto_id'>R$ {$registro['preco']}</td>";
+                    echo "<td>{$registro['desconto']}</td>";
                     echo "<td id='total-$produto_id'>R$ {$total_produto}</td>";
                     echo "<td>";
                     echo "<button onclick='atualizarQuantidade($produto_id)'>Atualizar</button>";
@@ -51,7 +56,18 @@
                     echo "</tr>";
                     
                 }
-                echo "<tr><td colspan='5'><output id='totalCompra'>Total da compra: R$ </output></td></tr>";
+                echo "<tr><td colspan='5' style='text-align:right'>
+                <output id='totalCompra'>Total da compra: 
+                <strong>R$ $totalCompra</strong></output>
+                </td></tr>";
+                echo "<tr><td colspan='5' style='text-align:right'>
+                <output id='totalDescontos'>Total de descontos: 
+                <strong>R$ $totalDescontos</strong></output>
+                </td></tr>";
+                echo "<tr><td colspan='5' style='text-align:right'>
+                <output id='totalAPagar'>Total a pagar: 
+                <strong>R$ $totalAPagar</strong></output>
+                </td></tr>";
             } else {
                 echo "<tr><td colspan='5'>Não há itens no carrinho</td></tr>";
             }
@@ -68,7 +84,6 @@
                 // Calcular o novo valor total para o produto
                 var precoUnitario = parseFloat(document.getElementById('preco-unitario-' + produto_id).textContent.replace("R$ ", ""));
                 var novoTotalProduto = novaQuantidade * precoUnitario;
-
                 // Atualizar a exibição do valor total do produto
                 document.getElementById('total-' + produto_id).textContent = "R$ " + novoTotalProduto.toFixed(2);
 
