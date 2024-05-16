@@ -89,6 +89,12 @@ white-space: nowrap;
 .right {
     width: 45%;
 }
-
+.produto{
+  border: solid black 1px;
+  border-radius: 2px;
+  width: 30%;
+  padding: 10px;
+  margin: 10px;
+}
 
 

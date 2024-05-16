@@ -56,11 +56,19 @@
       $registro["descricao"]."</a> | ";
   }
   session_start();
-  if(isset($_SESSION['idProduto']))
-    echo "<a href='carrinho.php'>Carrinho(". 
-    sizeof($_SESSION['Produto']).")</a>";
-  else
-    echo "<a href='carrinho.php'>Carrinho(0)</a>";
+  //inicio carrinho
+  if(isset($_SESSION['idProduto'])) {
+    echo "<a href='carrinho.php'>Carrinho(". sizeof($_SESSION['idProduto']).")</a>";
+  } else {
+    if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
+      // Calculando o total de itens no carrinho
+      $total_itens = array_sum($_SESSION['carrinho']);
+  } else {
+      $total_itens = 0;
+  }
+  echo "<a href='carrinho.php'>Carrinho($total_itens)</a>";
+  }
+  //fim carrinho
   if(isset($_GET['idCategoria'])){
     $idCategoria= $_GET['idCategoria'];
     $sql2 = "Select * from tbprodutos where quantidade>0 and 
