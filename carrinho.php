@@ -73,6 +73,7 @@
             }
             ?>
         </tbody>
+        <a href='salvarPedido.php'>Finalizar</a>
     </table>
 
     <script>
