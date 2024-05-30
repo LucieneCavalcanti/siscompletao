@@ -105,30 +105,26 @@ INSERT INTO bdsiscompletao.tbprodutos (descricao,quantidade,preco,desconto,idCat
 	 ('Aprenda Banco de Dados',10,25.00,5,4,1),
 	 ('Violetas na Janela',100,9.90,NULL,4,2);
 
-
-create table tbpessoas(
-id varchar(20) not null,
+create table tbPedidos(
+id int not null auto_increment primary key,
+dataPedido datetime default now(),
 idUsuario int not null references tbusuarios(id),
-cpf varchar(20) null,
-rg varchar(20) null,
-endereco varchar(500) not null,
-cep varchar(9) not null,
-sexo varchar(10) not null,
-dataNascimento date not null
-
+valorTotal decimal(10,2) not null,
+totalDescontos decimal(10,2) not null,
+valorAPagar decimal(10,2) not null,
+cupomAplicado varchar(50) null,
+tipoPagamento varchar(20) default "Dinheiro",
+statusPedido int not null references tbstatus(id), 
+dataEntrega date,
+statusEntrega int references tbstatus(id)
 )
-
-create table tbresponsaveis(
-idUsuarioResponsavel int not null references tbusuarios(id),
-idUsuarioMenor int not null references tbusuarios(id),
-parentesco int not null,
-assinacontrato boolean
+create table tbitenspedido(
+id int not null auto_increment primary key,
+idpedido int not null references tbpedidos(id),
+idproduto int not null references tbprodutos(id),
+quantidade int not null,
+valorProduto decimal(10,2) not null,
+valorDesconto decimal(10,2) default 0,
+valorAPagar decimal(10,2)
 )
-
-create table tbdocumentos(
-iddocumento int not null primary key auto_increment,
-documento blob,
-datadocumento date,
-tipodocumento varchar(20),
-idUsuario int not null references tbusuarios(id)
-)
+	
