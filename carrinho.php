@@ -64,6 +64,17 @@
                 <output id='totalDescontos'>Total de descontos: 
                 <strong>R$ $totalDescontos</strong></output>
                 </td></tr>";
+                //cupom
+                ?>
+                    <tr><td colspan='5' style='text-align:right'>
+                    <label>Digite o cupom</label><br>
+                    <input type="text" name="cupom"><br>
+                    <button type="button">Validar Cupom</button><br>
+                    <output id='valorDesconto'>Valor Desconto: 
+                    <strong>R$ </strong></output>
+                    </td></tr>
+
+                <?php
                 echo "<tr><td colspan='5' style='text-align:right'>
                 <output id='totalAPagar'>Total a pagar: 
                 <strong>R$ $totalAPagar</strong></output>
