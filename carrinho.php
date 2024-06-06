@@ -26,7 +26,13 @@
         <tbody>
             <?php
             session_start();
+            if(!isset($_GET['cupom'])){
+            $_SESSION['cupom']="";
+            $_SESSION['idcupom']="";
+            $_SESSION['statusCupom']="";
+            $_SESSION['valordesconto']="";
             
+            }
             // Verificando se existe carrinho na sessão
             if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
                 require_once "bd/conexao.php";
@@ -71,6 +77,7 @@
                     <input type="text" id="cupom" name="cupom"><br>
                     <button type="button" onclick="validarcupom()">Validar Cupom</button><br>
                     <output id='valorDesconto'>Valor Desconto: 
+                    
                     <strong>R$ </strong></output>
                     </td></tr>
                 <script>
@@ -79,7 +86,26 @@
                         window.location.href = "validarcupom.php?cupom=" + numeroCupom
                     }
                 </script>
+
                 <?php
+                //retorno da validação
+                // $_SESSION['cupom']
+                // $_SESSION['idcupom']
+                echo $_SESSION['statusCupom'];
+                if($_SESSION['statusCupom']!=""){
+                    if(isset($_SESSION['statusCupom']) && $_SESSION['statusCupom']=="ok"){
+                        echo "<p>".$_SESSION['valordesconto']."</p>";
+                    }else{
+                        echo "entrou no else";
+                        ?>
+                            <script>
+                                window.alert("Não foi possível utilizar o cupom")
+                            </script>
+                        <?php
+                    }
+                }
+
+
                 echo "<tr><td colspan='5' style='text-align:right'>
                 <output id='totalAPagar'>Total a pagar: 
                 <strong>R$ $totalAPagar</strong></output>
