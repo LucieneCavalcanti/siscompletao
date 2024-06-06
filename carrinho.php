@@ -68,12 +68,17 @@
                 ?>
                     <tr><td colspan='5' style='text-align:right'>
                     <label>Digite o cupom</label><br>
-                    <input type="text" name="cupom"><br>
-                    <button type="button">Validar Cupom</button><br>
+                    <input type="text" id="cupom" name="cupom"><br>
+                    <button type="button" onclick="validarcupom()">Validar Cupom</button><br>
                     <output id='valorDesconto'>Valor Desconto: 
                     <strong>R$ </strong></output>
                     </td></tr>
-
+                <script>
+                    function validarcupom(){
+                        numeroCupom = document.getElementById("cupom").value
+                        window.location.href = "validarcupom.php?cupom=" + numeroCupom
+                    }
+                </script>
                 <?php
                 echo "<tr><td colspan='5' style='text-align:right'>
                 <output id='totalAPagar'>Total a pagar: 

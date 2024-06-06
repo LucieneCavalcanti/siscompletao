@@ -5,11 +5,18 @@ if(isset($_GET['cupom'])){
     $sql = "select * from tbcupons where cupom='".$cupom."' and
     dataInicial<= now() and dataFinal>=now()";
     $resultado = $conn->query($sql);
-    $registro = $resultado->fetch(PDO::FETCH_ASSOC);
-    if($resultado->fetchColumn()>0){
-        echo "<p>Cupom ok</p>";
-    }else{
-        echo "<p>Cupom inválido</p>";
+    foreach($resultado as $cupom) {
+        if ($cupom['id']>0){
+            echo "<p> Cupom ok</p>";
+            exit;
+        }else {
+            echo "<p> Cupom inválido</p>";
+            exit;    
+        }
     }
+    echo "<p> Cupom inválido</p>";
+    exit;
+}else {
+    echo "<p> Erro</p>";
 }
 ?>
